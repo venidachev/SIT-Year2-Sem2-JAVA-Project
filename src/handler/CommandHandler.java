@@ -1,3 +1,6 @@
+package handler;
+
+import filemanager.FileManager;
 import res.R;
 import shapes.Shape;
 
@@ -12,15 +15,15 @@ public class CommandHandler {
             case R.open -> openCommand(args);
             case R.close -> closeCommand();
             case R.save -> saveCommand();
-            case R.saveas -> saveasCommand();
+            case R.saveas -> saveasCommand(args);
             case R.help -> helpCommand();
             case R.exit -> exitCommand();
 //            SVG commands
             case R.print -> printCommand();
-            case R.create -> createCommand();
-            case R.erase -> eraseCommand();
-            case R.translate -> translateCommand();
-            case R.within -> withinCommand();
+            case R.create -> createCommand(args);
+            case R.erase -> eraseCommand(args);
+            case R.translate -> translateCommand(args);
+            case R.within -> withinCommand(args);
             default -> {
                 System.out.println(R.invalidMessage);
                 yield 0;
@@ -42,8 +45,16 @@ public class CommandHandler {
         fm.closeFile();
         return 0;
     }
-    private int saveCommand() { return 0; }
-    private int saveasCommand() { return 0; }
+    private int saveCommand() {
+        FileManager fm = FileManager.getInstance();
+        fm.saveFile();
+        return 0;
+    }
+    private int saveasCommand(String[] args) {
+        FileManager fm = FileManager.getInstance();
+        fm.saveasFile(args[1]);
+        return 0;
+    }
 
     private int helpCommand() {
         System.out.println(R.helpMessage);
@@ -57,7 +68,7 @@ public class CommandHandler {
 //    SVG file commands
     private int printCommand() {
         FileManager fm = FileManager.getInstance();
-        if (fm.getCurrentFile() == null) {
+        if (fm.getFileName() == null) {
             System.out.println(R.errorNoFileOpen);
             return 0;
         }
@@ -70,22 +81,34 @@ public class CommandHandler {
         return 0;
     }
 
-    private int createCommand() {
-
+    private int createCommand(String[] args) {
+        FileManager fm = FileManager.getInstance();
+        fm.createShape(args);
         return 0;
     }
 
-    private int eraseCommand() {
-
+    private int eraseCommand(String[] args) {
+        FileManager fm = FileManager.getInstance();
+        fm.eraseShape(Integer.parseInt(args[1]));
         return 0;
     }
 
-    private int translateCommand() {
-
+    private int translateCommand(String[] args) {
+        int id;
+        try {
+//            Translate 1
+            id = Integer.parseInt(args[1]);
+            System.out.println(id);
+        } catch (ArrayIndexOutOfBoundsException e) {
+//            Translate all
+            System.out.println("Translate all");
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter valid number");
+        }
         return 0;
     }
 
-    private int withinCommand() {
+    private int withinCommand(String[] args) {
 
         return 0;
     }

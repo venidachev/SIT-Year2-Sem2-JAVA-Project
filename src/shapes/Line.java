@@ -6,14 +6,15 @@ public class Line extends Shape{
     private int y2;
     private int strokeWidth;
 
-    public Line(int x, int y, String fill, int x2, int y2, int strokeWidth) {
+    public Line(int x, int y, int x2, int y2, int strokeWidth, String fill) {
         super(x, y, fill);
         this.x2 = x2;
         this.y2 = y2;
         this.strokeWidth = strokeWidth;
+        this.name = "line";
     }
 
-    public Line(String svg) {
+    public static Line createLineFromSVG(String svg) {
 //        Extract indexes
         int xIndex = svg.indexOf("x1=\"") + 4;
         int yIndex = svg.indexOf("y1=\"") + 4;
@@ -21,15 +22,15 @@ public class Line extends Shape{
         int y2Index = svg.indexOf("y2=\"") + 4;
         int strokeWidthIndex = svg.indexOf("stroke-width=\"") + 14;
         int strokeIndex = svg.indexOf("stroke=\"") + 8;
-//        Constructor part
+//        Extract values
         int x = Integer.parseInt(svg.substring(xIndex, svg.indexOf("\"", xIndex)));
         int y = Integer.parseInt(svg.substring(yIndex, svg.indexOf("\"", yIndex)));
+        int x2 = Integer.parseInt(svg.substring(x2Index, svg.indexOf("\"", x2Index)));
+        int y2 = Integer.parseInt(svg.substring(y2Index, svg.indexOf("\"", y2Index)));
+        int strokeWidth = Integer.parseInt(svg.substring(strokeWidthIndex, svg.indexOf("\"", strokeWidthIndex)));
         String fill = svg.substring(strokeIndex, svg.indexOf("\"", strokeIndex));
 
-        super(x, y, fill);
-        this.x2 = Integer.parseInt(svg.substring(x2Index, svg.indexOf("\"", x2Index)));
-        this.y2 = Integer.parseInt(svg.substring(y2Index, svg.indexOf("\"", y2Index)));
-        this.strokeWidth = Integer.parseInt(svg.substring(strokeWidthIndex, svg.indexOf("\"", strokeWidthIndex)));
+        return new Line(x, y, x2, y2, strokeWidth, fill);
     }
 
 

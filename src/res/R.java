@@ -39,6 +39,9 @@ public class R {
 
     public static final String errorOpen = "Invalid usage. Correct usage: open <file>";
 
+    public static final String createSuccess = "Successfully created ";
+    public static final String eraseSuccess = "Erased a ";
+
 //    SVGParse messages
     public static final String newFileSuccess = "New file created";
     public static final String newFileFail = "Failed to create new file";

@@ -4,6 +4,7 @@ public abstract class Shape {
     protected int x;
     protected int y;
     protected String fill;
+    protected String name;
 
 
     abstract public String toPrint();
@@ -36,5 +37,13 @@ public abstract class Shape {
 
     public void setFill(String fill) {
         this.fill = fill;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
