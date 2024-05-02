@@ -1,6 +1,3 @@
-import res.R;
-
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
