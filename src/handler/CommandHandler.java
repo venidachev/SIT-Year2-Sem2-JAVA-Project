@@ -3,6 +3,7 @@ package handler;
 import filemanager.FileManager;
 import res.R;
 import shapes.Shape;
+import svg.SVGOperations;
 
 import java.util.List;
 
@@ -83,13 +84,17 @@ public class CommandHandler {
 
     private int createCommand(String[] args) {
         FileManager fm = FileManager.getInstance();
-        fm.createShape(args);
+        if (fm.getFileName() == null) {
+            System.out.println(R.errorNoFileOpen);
+            return 0;
+        }
+        SVGOperations.createShape(args);
         return 0;
     }
 
     private int eraseCommand(String[] args) {
         FileManager fm = FileManager.getInstance();
-        fm.eraseShape(Integer.parseInt(args[1]));
+        fm.removeShape(Integer.parseInt(args[1]));
         return 0;
     }
 
@@ -98,12 +103,18 @@ public class CommandHandler {
         try {
 //            Translate 1
             id = Integer.parseInt(args[1]);
-            System.out.println(id);
+            SVGOperations.translateShape(id, args);
+            System.out.println("Translated shape " + id);
         } catch (ArrayIndexOutOfBoundsException e) {
-//            Translate all
-            System.out.println("Translate all");
+//            Wrong usage
         } catch (NumberFormatException e) {
-            System.out.println("Please enter valid number");
+//            Translate all
+            FileManager fm = FileManager.getInstance();
+            List<Shape> shapes = fm.getShapes();
+            for (Shape shape : shapes) {
+                SVGOperations.translateShape(shapes.indexOf(shape)+1, args);
+            }
+            System.out.println("Translated all shapes");
         }
         return 0;
     }

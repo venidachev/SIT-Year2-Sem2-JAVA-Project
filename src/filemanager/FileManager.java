@@ -1,9 +1,6 @@
 package filemanager;
 
 import res.R;
-import shapes.Circle;
-import shapes.Line;
-import shapes.Rectangle;
 import shapes.Shape;
 import svg.SVGOperations;
 
@@ -84,23 +81,25 @@ public class FileManager {
         return path.getFileName().toString();
     }
 
+    public Shape getShape(int id) {
+        return shapes.get(--id);
+    }
+
     public List<Shape> getShapes() {
         return shapes;
     }
 
-    public void createShape(String[] args) {
-        if (args[1].equals("rectangle")) shapes.add(new Rectangle(Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), args[6]));
-        if (args[1].equals("circle")) shapes.add(new Circle(Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]), args[5]));
-        if (args[1].equals("line")) shapes.add(new Line(Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), Integer.parseInt(args[6]), args[7]));
-        int id = shapes.size();
-        System.out.println(R.createSuccess + args[1] + " (" + id + ")");
-
+    public void addShape(Shape shape) {
+        shapes.add(shape);
     }
 
-    public void eraseShape(int id) {
+    public void removeShape(int id) {
         String shape = shapes.get(--id).getName();
         shapes.remove(id++);
         System.out.println(R.eraseSuccess + shape + " (" + id + ")");
     }
 
+    public void editShape(int id, Shape shape) {
+        shapes.set(--id, shape);
+    }
 }

@@ -46,4 +46,12 @@ public abstract class Shape {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void translateVertical(int y) {
+        this.y += y;
+    }
+
+    public void translateHorizontal(int x) {
+        this.x += x;
+    }
 }

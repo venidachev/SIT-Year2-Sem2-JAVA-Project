@@ -37,6 +37,7 @@ public class Circle extends Shape{
                 x, y, radius, fill);
     }
 
+
     public int getRadius() {
         return radius;
     }
@@ -44,4 +45,6 @@ public class Circle extends Shape{
     public void setRadius(int radius) {
         this.radius = radius;
     }
+
+
 }

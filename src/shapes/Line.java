@@ -32,7 +32,17 @@ public class Line extends Shape{
 
         return new Line(x, y, x2, y2, strokeWidth, fill);
     }
+    @Override
+    public void translateVertical(int y) {
+        this.y += y;
+        this.y2 += y;
+    }
 
+    @Override
+    public void translateHorizontal(int x) {
+        this.x += x;
+        this.x2 += x;
+    }
 
     @Override
     public String toString() {
