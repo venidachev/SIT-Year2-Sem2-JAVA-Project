@@ -71,6 +71,15 @@ public class SVGOperations {
         return null;
     }
 
+    public static void printShapes() {
+        FileManager fm = FileManager.getInstance();
+        List<Shape> shapes = fm.getShapes();
+        int i = 0;
+        for (Shape shape: shapes) {
+            System.out.println(++i+". "+shape.toPrint());
+        }
+    }
+
     public static void createShape(String[] args) {
         FileManager fm = FileManager.getInstance();
         if (args[1].equals("rectangle")) fm.addShape(new Rectangle(Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), args[6]));
@@ -94,5 +103,9 @@ public class SVGOperations {
             }
         }
         fm.editShape(shapeID, shape);
+    }
+
+    public static void withinShape(String[] args) {
+
     }
 }

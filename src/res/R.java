@@ -15,16 +15,7 @@ public class R {
     public static final String erase = "erase";
     public static final String translate = "translate";
     public static final String within = "within";
-//    Help message
-    public static final String helpMessage = """
-        The following commands are supported:
-        open <file>      opens <file>
-        close            closes currently opened file
-        save             saves the currently open file
-        saveas <file>    saves the currently open file in <file>
-        help             prints this information
-        exit             exits the program""";
-//    Exit message
+
     public static final String exitMessage = "Exiting the program...";
 //    Invalid command message
     public static final String invalidMessage = "Invalid command: Use \"help\" for list of commands.";

@@ -25,10 +25,7 @@ public class CommandHandler {
             case R.erase -> eraseCommand(args);
             case R.translate -> translateCommand(args);
             case R.within -> withinCommand(args);
-            default -> {
-                System.out.println(R.invalidMessage);
-                yield 0;
-            }
+            default -> 3;
         };
     }
 //    Command line commands
@@ -53,56 +50,58 @@ public class CommandHandler {
     }
     private int saveasCommand(String[] args) {
         FileManager fm = FileManager.getInstance();
-        fm.saveasFile(args[1]);
+        try {
+            fm.saveasFile(args[1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(R.errorOpen);
+        }
         return 0;
     }
 
     private int helpCommand() {
-        System.out.println(R.helpMessage);
-        return 0;
+        return 2;
     }
 
     private int exitCommand() {
-        System.out.println(R.exitMessage);
         return 1;
     }
 //    SVG file commands
     private int printCommand() {
-        FileManager fm = FileManager.getInstance();
-        if (fm.getFileName() == null) {
-            System.out.println(R.errorNoFileOpen);
-            return 0;
+        if (FileManager.openFileCheck() == 1) {
+            return 20;
         }
-        List<Shape> shapes = fm.getShapes();
-        int i = 0;
-        for (Shape shape: shapes) {
-            System.out.println(++i+". "+shape.toPrint());
-        }
-
+        SVGOperations.printShapes();
         return 0;
     }
 
     private int createCommand(String[] args) {
-        FileManager fm = FileManager.getInstance();
-        if (fm.getFileName() == null) {
-            System.out.println(R.errorNoFileOpen);
-            return 0;
+        if (FileManager.openFileCheck() == 1) {
+            return 20;
         }
         SVGOperations.createShape(args);
         return 0;
     }
 
     private int eraseCommand(String[] args) {
+        if (FileManager.openFileCheck() == 1) {
+            return 20;
+        }
         FileManager fm = FileManager.getInstance();
-        fm.removeShape(Integer.parseInt(args[1]));
+        try {
+            fm.removeShape(Integer.parseInt(args[1]));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(R.errorOpen);
+        }
         return 0;
     }
 
     private int translateCommand(String[] args) {
-        int id;
+        if (FileManager.openFileCheck() == 1) {
+            return 20;
+        }
         try {
 //            Translate 1
-            id = Integer.parseInt(args[1]);
+            int id = Integer.parseInt(args[1]);
             SVGOperations.translateShape(id, args);
             System.out.println("Translated shape " + id);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -120,7 +119,10 @@ public class CommandHandler {
     }
 
     private int withinCommand(String[] args) {
-
+        if (FileManager.openFileCheck() == 1) {
+            return 0;
+        }
+        SVGOperations.withinShape(args);
         return 0;
     }
 }

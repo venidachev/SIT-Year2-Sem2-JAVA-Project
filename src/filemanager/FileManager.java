@@ -27,6 +27,19 @@ public class FileManager {
         return instance;
     }
 
+    public static int openFileCheck() {
+        FileManager fm = FileManager.getInstance();
+        if (fm.getPath() == null) {
+            System.out.println(R.errorNoFileOpen);
+            return 1;
+        }
+        return 0;
+    }
+
+    public Path getPath() {
+        return path;
+    }
+
     public void openFile(String filePath) {
         if (path != null) {
             System.out.println(R.failOpen + path.getFileName().toString());
